@@ -15,6 +15,7 @@ The production api url is https://api.uber.com/v1/
 - have python installed (tested with python 3.5.0 and 2.7.10)
 - have pip installed
 - use pip to install the [`requests`](http://docs.python-requests.org/) module
+    - `pip install requests`
 - clone this project, all commands are issued from inside this project directory
 
 ### Environment Variables
