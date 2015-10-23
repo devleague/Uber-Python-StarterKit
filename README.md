@@ -53,6 +53,10 @@ UBER_CLIENT_SECRET=your-cient-secret \
 ...your command
 ```
 
+## Problems?
+
+if you are seeing errors, make sure that there is a `.env` file located in the current directory which should be the project root, and that it is in the same format as `.env-sample` and that it has valid secret keys and tokens from the uber developer api.
+
 ## Simple requests
 
 The Uber API has 3 routes that only require server side authentication, and do not require a user to authorize via OAuth2
@@ -125,6 +129,50 @@ result _(truncated)_
 ...
 ```
 
-_if you are seeing errors, make sure that there is a `.env` file located in the current directory which should be the project root, and that it is in the same format as `.env-sample` and that it has valid secret keys and tokens from the uber developer api_
+
+
+### Price Estimate
+
+**GET /v1/estimates/price**
+
+https://developer.uber.com/v1/endpoints/#price-estimates
+
+run the `simple_price_estimates.py` script
+
+`env $(cat .env | xargs) python simple_price_estimates.py`
+
+result _(truncated)_
+
+```
+{
+  "prices": [
+    {
+      "estimate": "$11-15",
+      "duration": 853,
+      "currency_code": "USD",
+      "product_id": "6e731b60-2994-4f68-b586-74c077573bbd",
+      "surge_multiplier": 1.0,
+      "display_name": "uberX",
+      "high_estimate": 15,
+      "localized_display_name": "uberX",
+      "low_estimate": 11,
+      "distance": 3.81,
+      "minimum": 4
+    },
+    {
+      "estimate": "$18-24",
+      "duration": 853,
+      "currency_code": "USD",
+      "product_id": "2d2af87b-b870-4286-a300-7e7a8a79cd8c",
+      "surge_multiplier": 1.0,
+      "display_name": "uberXL",
+      "high_estimate": 24,
+      "localized_display_name": "uberXL",
+      "low_estimate": 18,
+      "distance": 3.81,
+      "minimum": 7
+    },
+...
+```
 
 
