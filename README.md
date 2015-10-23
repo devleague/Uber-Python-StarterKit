@@ -341,6 +341,7 @@ pip install rauth requests Flask
 
 then you can run any of the above commands
 
+More info about the rails docker image https://hub.docker.com/_/python/
 
 ## Further Reading
 
