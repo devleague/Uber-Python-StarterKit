@@ -176,3 +176,42 @@ result _(truncated)_
 ```
 
 
+
+### Time Estimate
+
+**GET /v1/estimates/time**
+
+https://developer.uber.com/v1/endpoints/#time-estimates
+
+run the `simple_time_estimates.py` script
+
+`env $(cat .env | xargs) python simple_time_estimates.py`
+
+result _(truncated)_
+
+```
+{
+  "times": [
+    {
+      "display_name": "uberX",
+      "localized_display_name": "uberX",
+      "estimate": 501,
+      "product_id": "6e731b60-2994-4f68-b586-74c077573bbd"
+    },
+    {
+      "display_name": "uberXL",
+      "localized_display_name": "uberXL",
+      "estimate": 624,
+      "product_id": "2d2af87b-b870-4286-a300-7e7a8a79cd8c"
+    },
+    {
+      "display_name": "uberASSIST",
+      "localized_display_name": "uberASSIST",
+      "estimate": 501,
+      "product_id": "11c96cc8-50ea-4e06-97cc-4646ae941669"
+    },
+...
+```
+
+
+
