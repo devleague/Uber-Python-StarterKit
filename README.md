@@ -214,4 +214,139 @@ result _(truncated)_
 ```
 
 
+## OAuth2 Requests
 
+*Requirements*
+
+- use pip to install the [`requests`](http://docs.python-requests.org/) module
+    - `pip install requests`
+- use pip to install the [`rauth`](http://rauth.readthedocs.org/en/latest/) module
+    - `pip install rauth`
+- use pip to install the [`Flask`](http://flask.pocoo.org/) micro framework
+    - `pip install Flask`
+- run the `oauth2_server.py` script to run a server listening on port `8080`
+    - `env $(cat .env | xargs) python oauth2_server.py`
+
+
+### Authorizing, step 1
+
+The first step in the OAuth2 authorization process is to get the uber login url.
+
+visit the oauth2_server app in your browser, go to http://localhost:8080/oauth/login
+
+**OR**
+
+run the `oauth2_get_login_url.py` script
+
+`env $(cat .env | xargs) python oauth2_get_login_url.py`
+
+result
+
+```
+https://login.uber.com/oauth/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth%2Fcb&client_id=mEBB-pbUk_LhdXp9YQ_dRzWxShvzRZDe&scope=profile
+```
+
+### Authorizing, step 2
+
+you will be prompted to login if you are not already logged in to uber.
+
+then you will be prompted to accept the `scopes` requested from `oauth2_get_login_url.py line:16` or `oauth2_server.py line:22`
+
+after accepting, and authorizing your account with the app using uber, you will be redirected to your callback url which should be accessible from your local server listening on port `8080`
+
+example redirect url
+```
+http://localhost:8080/oauth/cb?code=nmOqxLryF6QmAe6VzfbVgMfnZRifhp
+```
+
+on successful authorization, you should see your access token in the browser
+
+example `access_token`
+
+```
+rgHxpYJABmBmiiG0DBOXvgoKyVY10v
+```
+
+copy this, you will need it for step 3
+
+
+**Problems?**
+
+if you get an error like this:
+
+```
+ERROR
+
+THE BASE REDIRECT URI DOES NOT MATCH THE REQUESTED REDIRECT
+```
+
+then make sure that your app settings has a `Redirect URL` to your application that matches the url in `oauth2_get_login_url.py line:15` or `oauth2_server.py line:23`
+
+
+### Authorized, step 3
+
+Using the `access_token`, you can now make authorized calls to the rest of the uber api endpoints.
+
+getting the user profile:
+
+visit the oauth2_server /profile route with your browser at http://localhost:8080/profile?access_token=[your access_token from step 2]
+
+example
+
+```
+http://localhost:8080/profile?access_token=rgHxpYJABmBmiiG0DBOXvgoKyVY10v
+```
+
+response
+
+```
+{
+  "picture":"https:\/\/d1w2poirtb3as9.cloudfront.net\/default.jpeg",
+  "first_name":"Jonh",
+  "last_name":"Doe",
+  "promo_code":"xdemo",
+  "email":"uber@devleague.com",
+  "uuid":"5c768f51-9763-4d17-a9bd-2168f4a8772b"
+}
+```
+
+
+## Running Examples in Docker
+
+Docker is a great way to run this demo in a predictable isolated environment.
+
+Change your current working directory to the root of this project that you have cloned.
+
+_the --rm flag will create an ephemeral container that will destroy itself when you exit_
+
+**Starting a container with python 2.7.10**
+
+```
+docker run --rm --name uber-python-starterkit -v "$PWD":/app -w /app -it -p 8080:8080 python:2.7.10 bash
+```
+
+**Starting a container with python 3.5.0**
+
+```
+docker run --rm --name uber-python-starterkit -v "$PWD":/app -w /app -it -p 8080:8080 python:3.5.0 bash
+```
+
+**Once you are in a running container**
+
+install the required dependencies
+
+```
+pip install rauth requests Flask
+```
+
+then you can run any of the above commands
+
+
+## Further Reading
+
+We highly recommend reading through the [api docs](https://developer.uber.com/v1/api-reference/), [api endpoints](https://developer.uber.com/v1/endpoints/), and [tutorials](https://developer.uber.com/v1/tutorials/) at https://developer.uber.com/
+
+
+## Issues?
+
+If you have any issues or problems with these examples, please report them on our [github issue tracker](https://github.com/devleague/Uber-Python-StarterKit/issues).
