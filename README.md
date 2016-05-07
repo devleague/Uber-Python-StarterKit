@@ -12,6 +12,7 @@ The production api url is https://api.uber.com/v1/
 
 - have an uber account
 - create an app at https://developer.uber.com
+  - set `http://localhost:8080/oauth/cb` as Redirect URL (go to App Dashboard > Authorizations)
 - have python installed (tested with python 3.5.0 and 2.7.10)
 - have pip installed
 - use pip to install the [`requests`](http://docs.python-requests.org/) module
