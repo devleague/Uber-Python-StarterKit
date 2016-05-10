@@ -1,7 +1,7 @@
 import os
 import requests
 from rauth import OAuth2Service
-from flask import Flask, request
+from flask import Flask, request, redirect
 app = Flask(__name__)
 uber_api_url = 'https://sandbox-api.uber.com/v1'
 
